@@ -1,0 +1,42 @@
+## Ignore build results
+bin/
+obj/
+
+## User-specific files
+.idea/
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+## Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## .NET Core files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## ASP.NET Core
+wwwroot/
+
+## JetBrains Rider
+.idea/
+
+## User-specific files (macOS/Linux)
+.DS_Store
+
+# Windows Installer files
+Thumbs.db
+
+# Windows Installer files
+ehthumbs.db
+
