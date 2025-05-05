@@ -1,0 +1,206 @@
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Interfaces -->
+  <!-- PetOrderService -->
+  <rect x="50" y="50" width="250" height="180" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" />
+  <line x1="50" y1="80" x2="300" y2="80" stroke="#0277BD" stroke-width="1" />
+  <text x="150" y="70" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «interface»</text>
+  <text x="150" y="70" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">PetOrderService</text>
+  <line x1="50" y1="100" x2="300" y2="100" stroke="#0277BD" stroke-width="1" />
+  <text x="55" y="120" font-family="Arial" font-size="12">+ createOrder(PetOrder): PetOrder</text>
+  <text x="55" y="140" font-family="Arial" font-size="12">+ getOrderById(String): PetOrder</text>
+  <text x="55" y="160" font-family="Arial" font-size="12">+ updateOrder(String, PetOrder): PetOrder</text>
+  <text x="55" y="180" font-family="Arial" font-size="12">+ cancelOrder(String): boolean</text>
+  <text x="55" y="200" font-family="Arial" font-size="12">+ processPayment(String, PaymentDetails):
+    PetOrder</text>
+  <text x="55" y="220" font-family="Arial" font-size="12">+ updateOrderStatus(String, OrderStatus):
+    PetOrder</text>
+
+  <!-- OrderRepository -->
+  <rect x="50" y="300" width="250" height="120" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" />
+  <line x1="50" y1="330" x2="300" y2="330" stroke="#0277BD" stroke-width="1" />
+  <text x="150" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «interface»</text>
+  <text x="150" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">OrderRepository</text>
+  <line x1="50" y1="350" x2="300" y2="350" stroke="#0277BD" stroke-width="1" />
+  <text x="55" y="370" font-family="Arial" font-size="12">+ save(PetOrder): void</text>
+  <text x="55" y="390" font-family="Arial" font-size="12">+ findById(String):
+    Optional&lt;PetOrder&gt;</text>
+  <text x="55" y="410" font-family="Arial" font-size="12">+ findByCustomerId(String):
+    List&lt;PetOrder&gt;</text>
+
+  <!-- PaymentService -->
+  <rect x="350" y="500" width="250" height="100" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" />
+  <line x1="350" y1="530" x2="600" y2="530" stroke="#0277BD" stroke-width="1" />
+  <text x="475" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «interface»</text>
+  <text x="475" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">PaymentService</text>
+  <line x1="350" y1="550" x2="600" y2="550" stroke="#0277BD" stroke-width="1" />
+  <text x="355" y="570" font-family="Arial" font-size="12">+ processPayment(PaymentDetails): String</text>
+  <text x="355" y="590" font-family="Arial" font-size="12">+ processRefund(String): boolean</text>
+
+  <!-- InventoryService -->
+  <rect x="50" y="500" width="250" height="100" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" />
+  <line x1="50" y1="530" x2="300" y2="530" stroke="#0277BD" stroke-width="1" />
+  <text x="150" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «interface»</text>
+  <text x="150" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">InventoryService</text>
+  <line x1="50" y1="550" x2="300" y2="550" stroke="#0277BD" stroke-width="1" />
+  <text x="55" y="570" font-family="Arial" font-size="12">+ isAvailable(String, int): boolean</text>
+  <text x="55" y="590" font-family="Arial" font-size="12">+ reserveInventory(PetOrder): void</text>
+
+  <!-- NotificationService -->
+  <rect x="650" y="500" width="300" height="120" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" />
+  <line x1="650" y1="530" x2="950" y2="530" stroke="#0277BD" stroke-width="1" />
+  <text x="800" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «interface»</text>
+  <text x="800" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">NotificationService</text>
+  <line x1="650" y1="550" x2="950" y2="550" stroke="#0277BD" stroke-width="1" />
+  <text x="655" y="570" font-family="Arial" font-size="12">+
+    sendOrderCreationNotification(PetOrder): void</text>
+  <text x="655" y="590" font-family="Arial" font-size="12">+
+    sendOrderStatusUpdateNotification(PetOrder): void</text>
+  <text x="655" y="610" font-family="Arial" font-size="12">+
+    sendPaymentConfirmationNotification(PetOrder): void</text>
+
+  <!-- Classes -->
+  <!-- PetOrderServiceImpl -->
+  <rect x="400" y="50" width="300" height="230" fill="#E8F5E9" stroke="#388E3C" stroke-width="2" />
+  <line x1="400" y1="80" x2="700" y2="80" stroke="#388E3C" stroke-width="1" />
+  <text x="550" y="70" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    PetOrderServiceImpl</text>
+  <line x1="400" y1="100" x2="700" y2="100" stroke="#388E3C" stroke-width="1" />
+  <text x="405" y="120" font-family="Arial" font-size="12">- orderRepository: OrderRepository</text>
+  <text x="405" y="140" font-family="Arial" font-size="12">- paymentService: PaymentService</text>
+  <text x="405" y="160" font-family="Arial" font-size="12">- inventoryService: InventoryService</text>
+  <text x="405" y="180" font-family="Arial" font-size="12">- notificationService:
+    NotificationService</text>
+  <line x1="400" y1="190" x2="700" y2="190" stroke="#388E3C" stroke-width="1" />
+  <text x="405" y="210" font-family="Arial" font-size="12">+ createOrder(PetOrder): PetOrder</text>
+  <text x="405" y="230" font-family="Arial" font-size="12">+ getOrderById(String): PetOrder</text>
+  <text x="405" y="250" font-family="Arial" font-size="12">+ updateOrder(String, PetOrder): PetOrder</text>
+  <text x="405" y="270" font-family="Arial" font-size="12">+ cancelOrder(String): boolean</text>
+
+  <!-- PetOrder -->
+  <rect x="400" y="300" width="300" height="170" fill="#E8F5E9" stroke="#388E3C" stroke-width="2" />
+  <line x1="400" y1="330" x2="700" y2="330" stroke="#388E3C" stroke-width="1" />
+  <text x="550" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    PetOrder</text>
+  <line x1="400" y1="350" x2="700" y2="350" stroke="#388E3C" stroke-width="1" />
+  <text x="405" y="370" font-family="Arial" font-size="12">- orderId: String</text>
+  <text x="405" y="390" font-family="Arial" font-size="12">- customerId: String</text>
+  <text x="405" y="410" font-family="Arial" font-size="12">- orderDate: Date</text>
+  <text x="405" y="430" font-family="Arial" font-size="12">- items: List&lt;OrderItem&gt;</text>
+  <text x="405" y="450" font-family="Arial" font-size="12">- status: OrderStatus</text>
+  <text x="405" y="470" font-family="Arial" font-size="12">- paymentStatus: PaymentStatus</text>
+
+  <!-- OrderItem -->
+  <rect x="750" y="300" width="200" height="150" fill="#E8F5E9" stroke="#388E3C" stroke-width="2" />
+  <line x1="750" y1="330" x2="950" y2="330" stroke="#388E3C" stroke-width="1" />
+  <text x="850" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    OrderItem</text>
+  <line x1="750" y1="350" x2="950" y2="350" stroke="#388E3C" stroke-width="1" />
+  <text x="755" y="370" font-family="Arial" font-size="12">- itemId: String</text>
+  <text x="755" y="390" font-family="Arial" font-size="12">- petId: String</text>
+  <text x="755" y="410" font-family="Arial" font-size="12">- petName: String</text>
+  <text x="755" y="430" font-family="Arial" font-size="12">- petType: String</text>
+  <text x="755" y="450" font-family="Arial" font-size="12">- quantity: int</text>
+  <text x="755" y="470" font-family="Arial" font-size="12">- unitPrice: double</text>
+
+  <!-- PaymentDetails -->
+  <rect x="650" y="50" width="200" height="140" fill="#E8F5E9" stroke="#388E3C" stroke-width="2" />
+  <line x1="650" y1="80" x2="850" y2="80" stroke="#388E3C" stroke-width="1" />
+  <text x="750" y="70" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    PaymentDetails</text>
+  <line x1="650" y1="100" x2="850" y2="100" stroke="#388E3C" stroke-width="1" />
+  <text x="655" y="120" font-family="Arial" font-size="12">- paymentMethodId: String</text>
+  <text x="655" y="140" font-family="Arial" font-size="12">- transactionId: String</text>
+  <text x="655" y="160" font-family="Arial" font-size="12">- amount: double</text>
+  <text x="655" y="180" font-family="Arial" font-size="12">- currency: String</text>
+
+  <!-- Enums -->
+  <!-- OrderStatus -->
+  <rect x="750" y="200" width="200" height="70" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2" />
+  <line x1="750" y1="230" x2="950" y2="230" stroke="#EF6C00" stroke-width="1" />
+  <text x="850" y="220" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    «enumeration»</text>
+  <text x="850" y="220" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold"
+    dy="16">OrderStatus</text>
+  <line x1="750" y1="250" x2="950" y2="250" stroke="#EF6C00" stroke-width="1" />
+  <text x="755" y="270" font-family="Arial" font-size="12">CREATED, CONFIRMED, PROCESSING,</text>
+  <text x="755" y="290" font-family="Arial" font-size="12">SHIPPED, DELIVERED, CANCELED</text>
+
+  <!-- Exceptions -->
+  <rect x="750" y="650" width="200" height="100" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" />
+  <line x1="750" y1="680" x2="950" y2="680" stroke="#C2185B" stroke-width="1" />
+  <text x="850" y="670" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    OrderNotFoundException</text>
+  <line x1="750" y1="700" x2="950" y2="700" stroke="#C2185B" stroke-width="1" />
+  <text x="755" y="720" font-family="Arial" font-size="12">+ OrderNotFoundException(String)</text>
+
+  <rect x="500" y="650" width="200" height="100" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" />
+  <line x1="500" y1="680" x2="700" y2="680" stroke="#C2185B" stroke-width="1" />
+  <text x="600" y="670" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    InvalidOrderException</text>
+  <line x1="500" y1="700" x2="700" y2="700" stroke="#C2185B" stroke-width="1" />
+  <text x="505" y="720" font-family="Arial" font-size="12">+ InvalidOrderException(String)</text>
+
+  <rect x="250" y="650" width="200" height="100" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" />
+  <line x1="250" y1="680" x2="450" y2="680" stroke="#C2185B" stroke-width="1" />
+  <text x="350" y="670" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">
+    PaymentProcessingException</text>
+  <line x1="250" y1="700" x2="450" y2="700" stroke="#C2185B" stroke-width="1" />
+  <text x="255" y="720" font-family="Arial" font-size="12">+ PaymentProcessingException(String)</text>
+
+  <!-- Relationships -->
+  <!-- Implementation relationship -->
+  <line x1="300" y1="140" x2="400" y2="140" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="390,140 400,140 400,150" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+  <text x="350" y="130" font-family="Arial" font-size="10" text-anchor="middle">implements</text>
+
+  <!-- Dependency relationships -->
+  <line x1="550" y1="280" x2="550" y2="300" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="550,290 555,300 545,300" fill="#000000" stroke="#000000" stroke-width="1" />
+  <text x="570" y="290" font-family="Arial" font-size="10">uses</text>
+
+  <!-- PetOrder to OrderItem -->
+  <line x1="700" y1="400" x2="750" y2="400" stroke="#000000" stroke-width="1" />
+  <text x="715" y="390" font-family="Arial" font-size="10">1</text>
+  <text x="735" y="390" font-family="Arial" font-size="10">*</text>
+  <polygon points="740,400 750,400 750,410" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+
+  <!-- PetOrderServiceImpl to Services -->
+  <line x1="400" y1="160" x2="175" y2="300" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="180,290 175,300 165,295" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <line x1="450" y1="280" x2="175" y2="500" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="180,490 175,500 165,495" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <line x1="550" y1="280" x2="475" y2="500" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="480,490 475,500 465,495" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <line x1="650" y1="280" x2="800" y2="500" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" />
+  <polygon points="805,490 800,500 790,495" fill="#000000" stroke="#000000" stroke-width="1" />
+
+  <!-- PetOrder to OrderStatus -->
+  <line x1="700" y1="430" x2="750" y2="250" stroke="#000000" stroke-width="1" />
+  <polygon points="740,260 750,250 760,260" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+
+  <!-- Exception inheritance -->
+  <line x1="350" y1="650" x2="350" y2="620" stroke="#000000" stroke-width="1" />
+  <text x="360" y="635" font-family="Arial" font-size="10">extends Exception</text>
+  <polygon points="350,630 345,620 355,620" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+
+  <line x1="600" y1="650" x2="600" y2="620" stroke="#000000" stroke-width="1" />
+  <text x="610" y="635" font-family="Arial" font-size="10">extends Exception</text>
+  <polygon points="600,630 595,620 605,620" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+
+  <line x1="850" y1="650" x2="850" y2="620" stroke="#000000" stroke-width="1" />
+  <text x="860" y="635" font-family="Arial" font-size="10">extends Exception</text>
+  <polygon points="850,630 845,620 855,620" fill="#FFFFFF" stroke="#000000" stroke-width="1" />
+</svg>

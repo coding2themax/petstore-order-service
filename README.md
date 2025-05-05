@@ -118,19 +118,3 @@ The system is a standalone web application, accessible via web browsers and mobi
 
 - **A. Glossary:** Definitions of terms like SKU, inventory turnover.
 - **B. References:** External APIs, standards used (e.g., OWASP guidelines for security).
-
----
-
-# **End of Document**
-
----
-
-### Quick Notes:
-
-- This SRS can be _expanded_ (e.g., adding user stories, detailed ERD diagrams, sequence diagrams).
-- You can adapt it for **mobile apps**, **in-store kiosks**, or **multi-location franchise systems** too.
-
----
-
-Would you like me to also generate a **basic UML diagram** (like a Use Case Diagram) for this Pet Store system?  
-It can really help if you're building or explaining it further!

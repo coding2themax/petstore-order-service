@@ -1,0 +1,55 @@
+@startuml petstore-order-service
+
+package "com.coding2.the.max.petstore.order.model" {
+    class PetOrder {
+        - id: String
+        - customerId: String
+        - status: OrderStatus
+        - paymentDetails: PaymentDetails
+        ...
+    }
+
+    enum OrderStatus {
+        PENDING
+        COMPLETED
+        CANCELED
+        ...
+    }
+
+    class PaymentDetails {
+        - paymentId: String
+        - amount: double
+        - paymentMethod: String
+        ...
+    }
+}
+
+package "com.coding2.the.max.petstore.order.service" {
+    interface PetOrderService {
+        + PetOrder createOrder(PetOrder petOrder)
+        + PetOrder getOrderById(String orderId)
+        + PetOrder updateOrder(String orderId, PetOrder petOrder)
+        + boolean cancelOrder(String orderId)
+        + PetOrder processPayment(String orderId, PaymentDetails paymentDetails)
+        + PetOrder updateOrderStatus(String orderId, OrderStatus status)
+        + List<PetOrder> findOrdersByCustomer(String customerId)
+        + List<PetOrder> findOrdersByStatus(OrderStatus status)
+    }
+}
+
+package "com.coding2.the.max.petstore.order.exception" {
+    class InvalidOrderException
+    class OrderNotFoundException
+    class InvalidStatusChangeException
+    class PaymentProcessingException
+}
+
+PetOrderService ..> PetOrder : uses
+PetOrderService ..> OrderStatus : uses
+PetOrderService ..> PaymentDetails : uses
+PetOrderService ..> InvalidOrderException : throws
+PetOrderService ..> OrderNotFoundException : throws
+PetOrderService ..> InvalidStatusChangeException : throws
+PetOrderService ..> PaymentProcessingException : throws
+
+@enduml
