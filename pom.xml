@@ -93,6 +93,11 @@
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>r2dbc</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Add specific modules as needed, e.g., PostgreSQL -->
 		<dependency>
