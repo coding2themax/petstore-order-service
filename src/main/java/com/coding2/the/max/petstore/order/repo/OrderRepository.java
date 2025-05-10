@@ -1,7 +1,8 @@
 package com.coding2.the.max.petstore.order.repo;
 
-import java.util.List;
-import java.util.Optional;
+import reactor.core.publisher.Flux;
+
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 import com.coding2.the.max.petstore.order.model.OrderStatus;
 import com.coding2.the.max.petstore.order.model.PetOrder;
@@ -9,12 +10,9 @@ import com.coding2.the.max.petstore.order.model.PetOrder;
 /**
  * Repository interface for pet orders
  */
-public interface OrderRepository {
-  void save(PetOrder order);
+public interface OrderRepository extends ReactiveCrudRepository<PetOrder, String> {
 
-  Optional<PetOrder> findById(String orderId);
+  Flux<PetOrder> findByCustomerId(String customerId);
 
-  List<PetOrder> findByCustomerId(String customerId);
-
-  List<PetOrder> findByStatus(OrderStatus status);
+  Flux<PetOrder> findByStatus(OrderStatus status);
 }

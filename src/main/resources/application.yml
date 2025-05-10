@@ -11,3 +11,5 @@ spring:
     show-sql: true
   liquibase:
     enabled: true
+  webflux:
+    base-path: /api
