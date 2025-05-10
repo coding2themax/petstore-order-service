@@ -2,14 +2,14 @@ package com.coding2.the.max.petstore.order.model;
 
 import java.util.Date;
 
-import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents payment details for processing an order
  */
-@Builder
+@Data
 @Getter
 @Setter
 public class PaymentDetails {

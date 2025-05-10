@@ -12,13 +12,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.lang.Nullable;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * Represents a pet order in the system
  */
-@Builder
+@Data
 @Getter
 @Setter
 @Table(name = "pet_order", schema = "petstore")
