@@ -1,6 +1,6 @@
 package com.coding2.the.max.petstore.order.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -11,7 +11,6 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.lang.Nullable;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +30,7 @@ public class PetOrder implements Persistable<String> {
   private String customerId;
 
   @Column(value = "order_date")
-  private Date orderDate;
+  private LocalDate orderDate;
 
   @MappedCollection(idColumn = "order_id")
   private List<OrderItem> items;
