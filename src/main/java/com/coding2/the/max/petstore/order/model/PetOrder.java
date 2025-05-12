@@ -32,7 +32,8 @@ public class PetOrder implements Persistable<String> {
   @Column(value = "order_date")
   private LocalDate orderDate;
 
-  @MappedCollection(idColumn = "order_id")
+  // @MappedCollection(idColumn = "order_id") // For one-to-many relationship
+  @Column(value = "item_id")
   private List<OrderItem> items;
 
   @Column(value = "status")
