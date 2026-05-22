@@ -12,9 +12,7 @@ import lombok.Setter;
 @Setter
 public class OrderItem {
   private String itemId;
-  private String petId;
-  private String petName;
-  private String petType;
+  private String orderId;
   private int quantity;
   private double unitPrice;
 

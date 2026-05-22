@@ -1,6 +1,7 @@
 package com.coding2.the.max.petstore.order.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -30,7 +31,7 @@ public class PetOrder implements Persistable<String> {
   private String customerId;
 
   @Column(value = "order_date")
-  private LocalDate orderDate;
+  private LocalDateTime orderDate;
 
   // @MappedCollection(idColumn = "order_id") // For one-to-many relationship
   @Column(value = "item_id")
