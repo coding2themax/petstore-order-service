@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS petstore.pet_order (
     customer_id VARCHAR(255) NOT NULL,
     order_date TIMESTAMP NOT NULL,
     status VARCHAR(50) NOT NULL,
-    payment_status VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(50),
     shipping_address_street VARCHAR(255),
     shipping_address_city VARCHAR(100),
     shipping_address_state VARCHAR(100),

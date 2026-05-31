@@ -5,14 +5,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Embedded;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,8 +36,7 @@ public class PetOrder implements Persistable<String> {
   @Column(value = "order_date")
   private LocalDateTime orderDate;
 
-  // @MappedCollection(idColumn = "order_id") // For one-to-many relationship
-  @Column(value = "item_id")
+  @Transient
   private List<OrderItem> items;
 
   @Column(value = "status")
@@ -43,7 +45,7 @@ public class PetOrder implements Persistable<String> {
   @Column(value = "payment_status")
   private PaymentStatus paymentStatus;
 
-  @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL)
+  @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL, prefix = "shipping_address_")
   private Address shippingAddress;
 
   @Column(value = "total_amount")
@@ -51,6 +53,11 @@ public class PetOrder implements Persistable<String> {
 
   @Column(value = "special_instructions")
   private String specialInstructions;
+
+  @Transient
+  @JsonIgnore
+  @EqualsAndHashCode.Exclude
+  private boolean newEntity = true;
 
   @Override
   @Nullable
@@ -60,7 +67,7 @@ public class PetOrder implements Persistable<String> {
 
   @Override
   public boolean isNew() {
-    return this.orderId == null || this.orderId.isEmpty();
+    return this.newEntity;
   }
 
 }

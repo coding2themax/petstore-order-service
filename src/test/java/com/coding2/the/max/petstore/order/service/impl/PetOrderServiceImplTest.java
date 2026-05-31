@@ -2,7 +2,7 @@ package com.coding2.the.max.petstore.order.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import reactor.test.StepVerifier;
 
 @DataR2dbcTest
 @Import(PetOrderServiceImpl.class)
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 class PetOrderServiceImplTest {
 
   @Container
@@ -67,7 +67,7 @@ class PetOrderServiceImplTest {
     PetOrder petOrder = new PetOrder();
     petOrder.setOrderId("1");
     petOrder.setCustomerId("123");
-    petOrder.setOrderDate(LocalDate.now());
+    petOrder.setOrderDate(LocalDateTime.now());
     petOrder.setStatus(OrderStatus.CREATED);
 
     Mono<PetOrder> result = petOrderService.createOrder(petOrder);
@@ -86,7 +86,7 @@ class PetOrderServiceImplTest {
     PetOrder petOrder = new PetOrder();
     petOrder.setOrderId("1");
     petOrder.setCustomerId("123");
-    petOrder.setOrderDate(LocalDate.now());
+    petOrder.setOrderDate(LocalDateTime.now());
     petOrder.setStatus(OrderStatus.CREATED);
 
     orderRepository.save(petOrder).block();
@@ -116,7 +116,7 @@ class PetOrderServiceImplTest {
     PetOrder petOrder = new PetOrder();
     petOrder.setOrderId("1");
     petOrder.setCustomerId("123");
-    petOrder.setOrderDate(LocalDate.now());
+    petOrder.setOrderDate(LocalDateTime.now());
     petOrder.setStatus(OrderStatus.CREATED);
 
     orderRepository.save(petOrder).block();
@@ -137,13 +137,13 @@ class PetOrderServiceImplTest {
     PetOrder petOrder1 = new PetOrder();
     petOrder1.setOrderId("1");
     petOrder1.setCustomerId("123");
-    petOrder1.setOrderDate(LocalDate.now());
+    petOrder1.setOrderDate(LocalDateTime.now());
     petOrder1.setStatus(OrderStatus.CREATED);
 
     PetOrder petOrder2 = new PetOrder();
     petOrder2.setOrderId("2");
     petOrder2.setCustomerId("123");
-    petOrder2.setOrderDate(LocalDate.now());
+    petOrder2.setOrderDate(LocalDateTime.now());
     petOrder2.setStatus(OrderStatus.SHIPPED);
 
     orderRepository.save(petOrder1).block();
