@@ -1,24 +1,26 @@
 package com.coding2.the.max.petstore.order.controller;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.reactive.server.WebTestClient.bindToApplicationContext;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import com.coding2.the.max.petstore.order.model.OrderStatus;
 import com.coding2.the.max.petstore.order.model.PaymentDetails;
 import com.coding2.the.max.petstore.order.model.PaymentStatus;
 import com.coding2.the.max.petstore.order.model.PetOrder;
 import com.coding2.the.max.petstore.order.service.PetOrderService;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @WebFluxTest(PetOrderController.class)
 class PetOrderControllerTest {
