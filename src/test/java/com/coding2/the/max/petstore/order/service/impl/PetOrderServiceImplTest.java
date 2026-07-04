@@ -16,16 +16,22 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import com.coding2.the.max.petstore.order.exception.InvalidOrderException;
+import com.coding2.the.max.petstore.order.exception.InvalidStatusChangeException;
 import com.coding2.the.max.petstore.order.exception.OrderNotFoundException;
+import com.coding2.the.max.petstore.order.exception.PaymentProcessingException;
 import com.coding2.the.max.petstore.order.model.OrderStatus;
+import com.coding2.the.max.petstore.order.model.PaymentDetails;
+import com.coding2.the.max.petstore.order.model.PaymentStatus;
 import com.coding2.the.max.petstore.order.model.PetOrder;
+import com.coding2.the.max.petstore.order.model.PetOrderAfterConvertCallback;
 import com.coding2.the.max.petstore.order.repo.OrderRepository;
 
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @DataR2dbcTest
-@Import(PetOrderServiceImpl.class)
+@Import({ PetOrderServiceImpl.class, PetOrderAfterConvertCallback.class })
 @Testcontainers(disabledWithoutDocker = true)
 class PetOrderServiceImplTest {
 
@@ -129,6 +135,121 @@ class PetOrderServiceImplTest {
 
     StepVerifier.create(orderRepository.findById("1"))
         .assertNext(order -> assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED))
+        .verifyComplete();
+  }
+
+  @Test
+  void testCreateOrder_InvalidData() {
+    Mono<PetOrder> result = petOrderService.createOrder(new PetOrder());
+
+    StepVerifier.create(result)
+        .expectErrorMatches(throwable -> throwable instanceof InvalidOrderException &&
+            throwable.getMessage().equals("Invalid order data"))
+        .verify();
+  }
+
+  @Test
+  void testUpdateOrder() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CREATED);
+
+    orderRepository.save(petOrder).block();
+
+    PetOrder updatedOrder = new PetOrder();
+    updatedOrder.setCustomerId("456");
+    updatedOrder.setOrderDate(LocalDateTime.now());
+    updatedOrder.setStatus(OrderStatus.SHIPPED);
+
+    StepVerifier.create(petOrderService.updateOrder("1", updatedOrder))
+        .assertNext(order -> {
+          assertThat(order.getOrderId()).isEqualTo("1");
+          assertThat(order.getCustomerId()).isEqualTo("456");
+          assertThat(order.getStatus()).isEqualTo(OrderStatus.SHIPPED);
+        })
+        .verifyComplete();
+  }
+
+  @Test
+  void testCancelOrder_AlreadyCanceled() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CANCELED);
+
+    orderRepository.save(petOrder).block();
+
+    StepVerifier.create(petOrderService.cancelOrder("1"))
+        .expectErrorMatches(throwable -> throwable instanceof InvalidStatusChangeException &&
+            throwable.getMessage().equals("Order is already canceled"))
+        .verify();
+  }
+
+  @Test
+  void testProcessPayment() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CREATED);
+
+    orderRepository.save(petOrder).block();
+
+    PaymentDetails paymentDetails = new PaymentDetails();
+    paymentDetails.setPaymentMethodId("card-1");
+
+    StepVerifier.create(petOrderService.processPayment("1", paymentDetails))
+        .assertNext(order -> assertThat(order.getPaymentStatus()).isEqualTo(PaymentStatus.PAID))
+        .verifyComplete();
+  }
+
+  @Test
+  void testProcessPayment_AlreadyPaid() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CREATED);
+    petOrder.setPaymentStatus(PaymentStatus.PAID);
+
+    orderRepository.save(petOrder).block();
+
+    StepVerifier.create(petOrderService.processPayment("1", new PaymentDetails()))
+        .expectErrorMatches(throwable -> throwable instanceof PaymentProcessingException &&
+            throwable.getMessage().equals("Payment already processed"))
+        .verify();
+  }
+
+  @Test
+  void testUpdateOrderStatus() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CREATED);
+
+    orderRepository.save(petOrder).block();
+
+    StepVerifier.create(petOrderService.updateOrderStatus("1", OrderStatus.SHIPPED))
+        .assertNext(order -> assertThat(order.getStatus()).isEqualTo(OrderStatus.SHIPPED))
+        .verifyComplete();
+  }
+
+  @Test
+  void testFindOrdersByStatus() {
+    PetOrder petOrder = new PetOrder();
+    petOrder.setOrderId("1");
+    petOrder.setCustomerId("123");
+    petOrder.setOrderDate(LocalDateTime.now());
+    petOrder.setStatus(OrderStatus.CREATED);
+
+    orderRepository.save(petOrder).block();
+
+    StepVerifier.create(petOrderService.findOrdersByStatus(OrderStatus.CREATED))
+        .expectNextMatches(order -> order.getOrderId().equals("1"))
         .verifyComplete();
   }
 

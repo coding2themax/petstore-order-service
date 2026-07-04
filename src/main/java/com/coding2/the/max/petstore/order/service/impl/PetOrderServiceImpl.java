@@ -44,6 +44,7 @@ public class PetOrderServiceImpl implements PetOrderService {
     return getOrderById(orderId)
         .flatMap(existingOrder -> {
           petOrder.setOrderId(orderId);
+          petOrder.setNewEntity(false);
           return orderRepository.save(petOrder).then(Mono.just(petOrder));
         });
   }
