@@ -1,5 +1,9 @@
 # **Software Requirements Specification (SRS)**
 
+[![codecov](https://codecov.io/gh/coding2themax/petstore-order-service/graph/badge.svg)](https://codecov.io/gh/coding2themax/petstore-order-service)
+
+![GitHub License](https://img.shields.io/github/license/coding2themax/petstore-order-service)
+
 ## **Pet Store Management System**
 
 ---
