@@ -122,3 +122,19 @@ The system is a standalone web application, accessible via web browsers and mobi
 
 - **A. Glossary:** Definitions of terms like SKU, inventory turnover.
 - **B. References:** External APIs, standards used (e.g., OWASP guidelines for security).
+
+## Horse & Feeding Schedule API
+
+Tables `petstore.horse` and `petstore.feeding_schedule` (see `src/main/resources/schema.sql`). Deleting a horse also deletes its feedings.
+
+| Method | Path | Purpose |
+|---|---|---|
+| POST | `/api/horses` | Add a horse (`name` required) |
+| GET | `/api/horses` | List horses |
+| GET / PUT / DELETE | `/api/horses/{horseId}` | Read / update / remove a horse |
+| POST | `/api/horses/{horseId}/feedings` | Add a daily feeding (`feedTime`, `feedType`, `quantityKg` required) |
+| GET | `/api/horses/{horseId}/feedings` | A horse's feedings, ordered by time |
+| PUT / DELETE | `/api/horses/{horseId}/feedings/{scheduleId}` | Update / remove a feeding |
+| GET | `/api/horses/feedings?from=06:00&to=09:00` | All feedings due in a time window |
+
+Missing horses/feedings return 404; invalid data returns 400.
