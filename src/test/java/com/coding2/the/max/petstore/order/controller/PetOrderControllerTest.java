@@ -40,7 +40,7 @@ class PetOrderControllerTest {
         when(petOrderService.createOrder(any(PetOrder.class))).thenReturn(Mono.just(petOrder));
 
         webTestClient.post()
-                .uri("/api/orders")
+                .uri("/orders")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(petOrder)
                 .exchange()
@@ -59,7 +59,7 @@ class PetOrderControllerTest {
         when(petOrderService.getOrderById("1")).thenReturn(Mono.just(petOrder));
 
         webTestClient.get()
-                .uri("/api/orders/1")
+                .uri("/orders/1")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(PetOrder.class)
@@ -77,7 +77,7 @@ class PetOrderControllerTest {
         when(petOrderService.updateOrder(eq("1"), any(PetOrder.class))).thenReturn(Mono.just(petOrder));
 
         webTestClient.put()
-                .uri("/api/orders/1")
+                .uri("/orders/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(petOrder)
                 .exchange()
@@ -93,7 +93,7 @@ class PetOrderControllerTest {
         when(petOrderService.cancelOrder("1")).thenReturn(Mono.just(true));
 
         webTestClient.delete()
-                .uri("/api/orders/1")
+                .uri("/orders/1")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Boolean.class)
@@ -113,7 +113,7 @@ class PetOrderControllerTest {
         when(petOrderService.processPayment(eq("1"), any(PaymentDetails.class))).thenReturn(Mono.just(petOrder));
 
         webTestClient.post()
-                .uri("/api/orders/1/payment")
+                .uri("/orders/1/payment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(paymentDetails)
                 .exchange()
@@ -133,7 +133,7 @@ class PetOrderControllerTest {
         when(petOrderService.updateOrderStatus(eq("1"), eq(OrderStatus.SHIPPED))).thenReturn(Mono.just(petOrder));
 
         webTestClient.patch()
-                .uri("/api/orders/1/status")
+                .uri("/orders/1/status")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(OrderStatus.SHIPPED)
                 .exchange()
@@ -153,7 +153,7 @@ class PetOrderControllerTest {
         when(petOrderService.findOrdersByCustomer("123")).thenReturn(Flux.just(petOrder));
 
         webTestClient.get()
-                .uri("/api/orders/customer/123")
+                .uri("/orders/customer/123")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(PetOrder.class)
@@ -172,7 +172,7 @@ class PetOrderControllerTest {
         when(petOrderService.findOrdersByStatus(OrderStatus.CREATED)).thenReturn(Flux.just(petOrder));
 
         webTestClient.get()
-                .uri("/api/orders/status/CREATED")
+                .uri("/orders/status/CREATED")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(PetOrder.class)

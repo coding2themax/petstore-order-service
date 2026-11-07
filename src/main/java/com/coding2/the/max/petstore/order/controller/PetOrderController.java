@@ -10,7 +10,7 @@ import com.coding2.the.max.petstore.order.model.PetOrder;
 import com.coding2.the.max.petstore.order.service.PetOrderService;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 public class PetOrderController {
 
   private final PetOrderService petOrderService;

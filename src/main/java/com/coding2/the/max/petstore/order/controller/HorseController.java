@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/horses")
+@RequestMapping("/horses")
 public class HorseController {
 
   private final HorseService horseService;
