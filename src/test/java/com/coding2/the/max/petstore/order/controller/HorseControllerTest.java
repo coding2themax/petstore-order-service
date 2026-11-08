@@ -54,7 +54,7 @@ class HorseControllerTest {
   void createHorse() {
     when(horseService.createHorse(any(Horse.class))).thenReturn(Mono.just(horse()));
 
-    webTestClient.post().uri("/api/horses")
+    webTestClient.post().uri("/horses")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(horse())
         .exchange()
@@ -67,7 +67,7 @@ class HorseControllerTest {
     when(horseService.createHorse(any(Horse.class)))
         .thenReturn(Mono.error(new InvalidHorseDataException("Horse name is required")));
 
-    webTestClient.post().uri("/api/horses")
+    webTestClient.post().uri("/horses")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(new Horse())
         .exchange()
@@ -78,7 +78,7 @@ class HorseControllerTest {
   void getAllHorses() {
     when(horseService.getAllHorses()).thenReturn(Flux.just(horse()));
 
-    webTestClient.get().uri("/api/horses")
+    webTestClient.get().uri("/horses")
         .exchange()
         .expectStatus().isOk()
         .expectBodyList(Horse.class).hasSize(1).contains(horse());
@@ -88,7 +88,7 @@ class HorseControllerTest {
   void getHorse() {
     when(horseService.getHorseById(1L)).thenReturn(Mono.just(horse()));
 
-    webTestClient.get().uri("/api/horses/1")
+    webTestClient.get().uri("/horses/1")
         .exchange()
         .expectStatus().isOk()
         .expectBody(Horse.class).isEqualTo(horse());
@@ -98,7 +98,7 @@ class HorseControllerTest {
   void getMissingHorseReturns404() {
     when(horseService.getHorseById(2L)).thenReturn(Mono.error(new HorseNotFoundException("missing")));
 
-    webTestClient.get().uri("/api/horses/2")
+    webTestClient.get().uri("/horses/2")
         .exchange()
         .expectStatus().isNotFound();
   }
@@ -107,7 +107,7 @@ class HorseControllerTest {
   void updateHorse() {
     when(horseService.updateHorse(eq(1L), any(Horse.class))).thenReturn(Mono.just(horse()));
 
-    webTestClient.put().uri("/api/horses/1")
+    webTestClient.put().uri("/horses/1")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(horse())
         .exchange()
@@ -119,7 +119,7 @@ class HorseControllerTest {
   void deleteHorse() {
     when(horseService.deleteHorse(1L)).thenReturn(Mono.empty());
 
-    webTestClient.delete().uri("/api/horses/1")
+    webTestClient.delete().uri("/horses/1")
         .exchange()
         .expectStatus().isNoContent();
     verify(horseService).deleteHorse(1L);
@@ -129,7 +129,7 @@ class HorseControllerTest {
   void addFeeding() {
     when(horseService.addFeedingSchedule(eq(1L), any(FeedingSchedule.class))).thenReturn(Mono.just(feeding()));
 
-    webTestClient.post().uri("/api/horses/1/feedings")
+    webTestClient.post().uri("/horses/1/feedings")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(feeding())
         .exchange()
@@ -141,7 +141,7 @@ class HorseControllerTest {
   void getFeedings() {
     when(horseService.getFeedingSchedules(1L)).thenReturn(Flux.just(feeding()));
 
-    webTestClient.get().uri("/api/horses/1/feedings")
+    webTestClient.get().uri("/horses/1/feedings")
         .exchange()
         .expectStatus().isOk()
         .expectBodyList(FeedingSchedule.class).hasSize(1).contains(feeding());
@@ -152,7 +152,7 @@ class HorseControllerTest {
     when(horseService.updateFeedingSchedule(eq(1L), eq(10L), any(FeedingSchedule.class)))
         .thenReturn(Mono.just(feeding()));
 
-    webTestClient.put().uri("/api/horses/1/feedings/10")
+    webTestClient.put().uri("/horses/1/feedings/10")
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(feeding())
         .exchange()
@@ -164,7 +164,7 @@ class HorseControllerTest {
   void deleteFeeding() {
     when(horseService.deleteFeedingSchedule(1L, 10L)).thenReturn(Mono.empty());
 
-    webTestClient.delete().uri("/api/horses/1/feedings/10")
+    webTestClient.delete().uri("/horses/1/feedings/10")
         .exchange()
         .expectStatus().isNoContent();
     verify(horseService).deleteFeedingSchedule(1L, 10L);
@@ -175,7 +175,7 @@ class HorseControllerTest {
     when(horseService.getFeedingsBetween(LocalTime.of(6, 0), LocalTime.of(9, 0)))
         .thenReturn(Flux.just(feeding()));
 
-    webTestClient.get().uri("/api/horses/feedings?from=06:00&to=09:00")
+    webTestClient.get().uri("/horses/feedings?from=06:00&to=09:00")
         .exchange()
         .expectStatus().isOk()
         .expectBodyList(FeedingSchedule.class).hasSize(1).contains(feeding());
